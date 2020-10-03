@@ -1,9 +1,9 @@
-# **TIME ELECTRIC POWER CONSUMPTIONT**
+##TIME SERIES ANALYSIS OF HOUSEHOLD ELECTRIC POWER CONSUMPTION
 
 
-#1.**ABSTRACT**
+1.**ABSTRACT**
 
-**Introducti on:** Time Series analysis is “an ordered sequence of values of a variable at equally spaced time intervals.” It is used to understand the determining factors and structure behind the observed data, choose a model to forecast, thereby leading to better decision making.
+**Introduction:** Time Series analysis is “an ordered sequence of values of a variable at equally spaced time intervals.” It is used to understand the determining factors and structure behind the observed data, choose a model to forecast, thereby leading to better decision making.
 
 The Time Series Analysis is applied for various purposes, such as:
 
@@ -29,7 +29,7 @@ and more.
 
 
 
-#2.**DATASET BACKGROUND** 
+2.**DATASET BACKGROUND** 
 
 **Dataset Source:** [https://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption](https://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption)
 
@@ -501,9 +501,9 @@ df.columns
 
 
 
-#3.**EXPLORATORY DATA ANALYSIS (EDA)**
+3.**EXPLORATORY DATA ANALYSIS (EDA)**
 
-## 3.1 Dealing with missing values "*nan*"
+3.1 Dealing with missing values "*nan*"
 
 
 ```python
@@ -554,7 +554,7 @@ df.isnull().sum()
 
 There are no null values after processing the data
 
-##3.2 Data Visualization
+3.2 Data Visualization
 
 **I have resampled over day and shown that the sum and mean of Global_active_power . We can observe that both have similar structure.**
 
@@ -766,7 +766,7 @@ plt.show()
     <Figure size 3600x3600 with 0 Axes>
 
 
-##3.3 Correlation among features
+3.3 Correlation among features
 
 
 ```python
@@ -809,10 +809,10 @@ plt.show()
 
 Using resampling techniques we can change the correlation among the features. This is important for feature engineering.
 
-#4.**MACHINE LEARNING : LSTM Data Preparation and feature engineering**
+4.**MACHINE LEARNING : LSTM Data Preparation and feature engineering**
 
 
-##4.1 Long-Short Term Memory (LSTM) Data Preparation and Feature Engineering
+4.1 Long-Short Term Memory (LSTM) Data Preparation and Feature Engineering
 
 I will apply recurrent neural network (LSTM) which is best suited for time-seriers and sequential problem. 
 
@@ -922,7 +922,7 @@ print(reframed.head())
 Above I showed 7 input variables (input series) and the 1 output variable for 'Global_active_power' at the current time in hour (depending on resampling).
 
 
-##4.2 **Splitting the rest of data to train and validation sets**
+4.2 **Splitting the rest of data to train and validation sets**
 
 First, I split the prepared dataset into train and test sets. To speed up the training of the model (for the sake of the demonstration), we will only train the model on the first year of data, then evaluate it on the next 3 years of data
 
@@ -948,7 +948,7 @@ print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
     (8760, 1, 7) (8760,) (25828, 1, 7) (25828,)
     
 
-#5.**MODEL ARCHITECTURE**
+5.**MODEL ARCHITECTURE**
 
 1.   LSTM with 100 neurons in the first visible layer
 2.   dropout 20%
@@ -1048,7 +1048,7 @@ model.summary()
     _________________________________________________________________
     
 
-##5.1 Fit network
+5.1 Fit network
 
 
 ```python
@@ -1122,7 +1122,7 @@ history = model.fit(train_X, train_y, epochs=20, batch_size=70, validation_data=
      - 2s - loss: 0.0104 - val_loss: 0.0093
     
 
-##5.2 Accuracy of Model 
+5.2 Accuracy of Model 
 
 
 ```python
@@ -1161,7 +1161,7 @@ print('Test RMSE: %.3f' % rmse)
 
 In order to improve the model, one has to adjust epochs and batch_size. 
 
-##5.3 Model Prediction 
+5.3 Model Prediction 
 
 Predicting the '**Global_active_power**' for first 200 hours using the created model.
 
@@ -1183,14 +1183,14 @@ plt.show()
 ![png](output_74_0.png)
 
 
-#6.**FINAL REMARKS & FUTURE SCOPE**:
+6.**FINAL REMARKS & FUTURE SCOPE**:
 * Here I have used the LSTM neural network which is now the state-of-the-art for sequential problems.
 * In order to reduce the computation time, and get some results quickly, I took the first year of data (resampled over hour) to train the model and the rest of data to test the model.
 * I put together a very simple LSTM neural-network to show that one can obtain reasonable predictions. However number of rows is too high and as a result the computation is very time-consuming (even for the simple model it took few mins to be run on 2.8 GHz Intel Core i7 system). 
 * Moreover, the neural-network architecture that I have designed is a low level model. It can be easily improved by adding CNN and dropout layers. The CNN is useful here since there are correlations in data (CNN layer is a good way to probe the local structure of data).
 * Using spark (MLlib) on a system running with GPU we can obtain reasonable predictions with less computing time.
 
-#7.**SUMMARY**
+7.**SUMMARY**
 
 **Title:** Individual household electric power consumption
 
@@ -1215,7 +1215,7 @@ As this dataset is an observation of electricity consumption over a time period.
 
 
 
-#8.**REFERENCES:**
+8.**REFERENCES:**
 
 https://towardsdatascience.com/3-ways-to-load-csv-files-into-colab-7c14fcbdcb92
 
